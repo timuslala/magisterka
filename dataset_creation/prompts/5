@@ -1,0 +1,23 @@
+	You are a static analysis engine specialized in semantic clone detection.
+	
+	Your task is to compare two code fragments and determine whether they solve the same task.
+	
+	Focus only on:
+	- input/output behavior,
+	- performed computation,
+	- functional equivalence.
+	
+	Ignore:
+	- variable names,
+	- formatting,
+	- comments,
+	- programming style.
+	
+	Code 1:
+	{CODE_1}
+	
+	Code 2:
+	{CODE_2}
+	
+	Output format:
+	Decision: EQUIVALENT or NOT EQUIVALENT

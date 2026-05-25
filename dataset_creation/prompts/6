@@ -1,0 +1,27 @@
+	Create a semantic profile for each code fragment.
+	
+	For each fragment identify:
+	- input types,
+	- output types,
+	- side effects,
+	- main algorithm,
+	- data transformations,
+	- computational objective.
+	
+	Then compare both profiles and determine whether the code fragments are semantically equivalent.
+	
+	Code 1:
+	{CODE_1}
+	
+	Code 2:
+	{CODE_2}
+	
+	Output:
+	Semantic Profile 1:
+	...
+	
+	Semantic Profile 2:
+	...
+	
+	Final Decision:
+	EQUIVALENT or NOT EQUIVALENT

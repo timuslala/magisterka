@@ -1,0 +1,207 @@
+Example 1:
+
+Code 1:
+
+public class A
+{
+    static int N;
+
+    static int ans;
+
+    public static void main(String ... orange) throws Exception
+    {
+        Scanner input = new Scanner(System.in);
+        int numCases = input.nextInt();
+        for (int n = 0; n < numCases; n++)
+        {
+            char[] S = input.next().toCharArray();
+            int K = S.length;
+            int[][] table = new int[K + 1][K + 1];
+            for (int len = 2; len <= K; len += 2)
+                for (int start = 0; start + len <= K; start++)
+                {
+                    table[start][len] = (S[start] == S[start + len - 1] ? 10 : 5) + table[start + 1][len - 2];
+                    for (int first = 2; first < len; first += 2)
+                        if (table[start][first] + table[start + first][len - first] > table[start][len])
+                            table[start][len] = table[start][first] + table[start + first][len - first];
+                }
+
+            System.out.printf("Case #%d: ", n + 1);
+            System.out.println(table[0][K]);
+        }
+    }
+}
+
+Code 2:
+
+public class A {
+	public static void main(String[] args) throws Exception {
+		Scanner in = new Scanner(new File("AL.in"));
+		PrintWriter out = new PrintWriter("AL.out");
+		int tc = in.nextInt();
+		for (int cc = 1; cc <= tc; cc++) {
+			String s = in.next();
+			int gain = 0;
+			while (true) {
+				Stack<Character> stack = new Stack<>();
+				for (int i = 0; i < s.length(); i++) {
+					if (!stack.isEmpty() && stack.peek() == s.charAt(i)) {
+						stack.pop();
+					} else {
+						stack.push(s.charAt(i));
+					}
+				}
+				StringBuilder next = new StringBuilder();
+				for (Character c : stack) {
+					next.append(c);
+				}
+				String nx = next.toString();
+				int value = (s.length() - nx.length()) / 2 * 10;
+				s = nx;
+				if (value == 0)
+					break;
+				gain += value;
+			}
+			gain += s.length() / 2 * 5;
+			System.out.printf("Case #%d: %d\n", cc, gain);
+			out.printf("Case #%d: %d\n", cc, gain);
+		}
+		out.close();
+	}
+}
+
+
+Answer:
+EQUIVALENT
+
+---
+
+Example 2:
+
+Code 1:
+
+public class TeachingAssistant {
+
+    public static void main(String[] args) throws FileNotFoundException {
+//        Scanner cin = new Scanner(new File("A-small-attempt0.in"));
+//        PrintStream cout = new PrintStream("A-small-attempt0.out");
+        Scanner cin = new Scanner(new File("A-large.in"));
+        PrintStream cout = new PrintStream("A-large.out");
+//        Scanner cin = new Scanner(System.in);
+//        PrintStream cout = System.out;
+
+        int _case = 0;
+        for (int T = cin.nextInt(); T > 0; T--) {
+            _case++;
+            StringBuilder ans = new StringBuilder();
+
+            String s = cin.next();
+            int totalRequested = 0;
+            Stack<Character> stack = new Stack<>();
+            Stack<Integer> points = new Stack<>();
+            int maxPoints = 0;
+            int cnt = 0;
+            for (int i = 0; i < s.length(); i++) {
+                if (!stack.empty() && stack.peek() == s.charAt(i) || totalRequested == s.length() / 2) {
+                    maxPoints += stack.pop() == s.charAt(i) ? points.pop() : points.pop() - 5;
+                } else {
+                    stack.push(s.charAt(i));
+                    points.push(10);
+                    totalRequested++;
+                }
+            }
+            ans.append(maxPoints);
+
+            cout.printf("Case #%d: %s%n", _case, ans.toString());
+        }
+
+        cin.close();
+        cout.close();
+    }
+}
+
+Code 2:
+
+public class A {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int T = in.nextInt();
+        for (int zz = 1; zz <= T; zz++) {
+            int N = in.nextInt();
+            int D = in.nextInt();
+            long S0 = in.nextInt();
+            long As = in.nextInt();
+            long Cs = in.nextInt();
+            long Rs = in.nextInt();
+            long M0 = in.nextInt();
+            long Am = in.nextInt();
+            long Cm = in.nextInt();
+            long Rm = in.nextInt();
+
+            int[] P = new int[N];
+            int[] S = new int[N];
+            P[0] = (int)M0;
+            S[0] = (int)S0;
+            for (int i = 1; i < N; i++) {
+                P[i] = (int)((P[i-1] * Am + Cm) % Rm);
+                S[i] = (int)((S[i-1] * As + Cs) % Rs);
+            }
+
+            int[] L = new int[N];
+            int[] H = new int[N];
+            L[0] = S[0];
+            H[0] = S[0];
+            ArrayList<Integer> add = new ArrayList<Integer>();
+            ArrayList<Integer> remove = new ArrayList<Integer>();
+            for (int i = 0; i < N; i++) {
+                if (i != 0) {
+                    P[i] %= i;
+                    L[i] = L[P[i]];
+                    H[i] = H[P[i]];
+                    L[i] = min(L[i], S[i]);
+                    H[i] = max(H[i], S[i]);
+                }
+
+                int a = H[i] - D;
+                int r = L[i];
+                //System.out.println(i+" "+a+" "+r);
+                if (a <= r) {
+                    add.add(a);
+                    remove.add(r);
+                }
+            }
+            Collections.sort(add);
+            Collections.sort(remove);
+            int aat = 0;
+            int rat = 0;
+            int total = 0;
+            int ans = 0;
+            while (aat < add.size() && rat < remove.size()) {
+                if (add.get(aat) <= remove.get(rat)) {
+                    total++;
+                    aat++;
+                } else {
+                    total--;
+                    rat++;
+                }
+                ans = max(ans, total);
+            }
+            System.out.format("Case #%d: %d\n", zz, ans);
+        }
+    }
+}
+
+Answer:
+NOT EQUIVALENT
+
+---
+
+Now analyze the following pair.
+
+Code 1:
+{CODE_1}
+
+Code 2:
+{CODE_2}
+
+Answer:

@@ -1,0 +1,26 @@
+You are an expert in source code semantic analysis.
+
+Compare the following two code fragments.
+
+Analyze step-by-step:
+1. Input parameters and their data types.
+2. Output values and return types.
+3. Main operations performed on the data.
+4. Algorithmic behavior.
+5. Edge-case handling.
+6. Whether both fragments produce the same outputs for the same inputs.
+
+Code 1:
+{CODE_1}
+
+Code 2:
+{CODE_2}
+
+At the end provide:
+Decision: EQUIVALENT or NOT EQUIVALENT
+
+Justification:
+- Inputs:
+- Outputs:
+- Core logic:
+- Important differences:

@@ -1,0 +1,18 @@
+Analyze whether the following two code fragments solve the same problem.
+
+Check:
+1. Whether they accept equivalent input data.
+2. Whether they produce equivalent outputs.
+3. Whether they perform the same computation or transformation.
+4. Whether they are functionally equivalent despite implementation differences.
+
+Code 1:
+{CODE_1}
+
+Code 2:
+{CODE_2}
+
+Return:
+- EQUIVALENT
+or
+- NOT EQUIVALENT
