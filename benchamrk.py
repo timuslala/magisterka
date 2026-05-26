@@ -1,16 +1,12 @@
 import os
+import sys
 import time
 import pickle
-import requests
 from openai import OpenAI
 
-RESULTS_FILE = "results/results.pickle"
+RESULTS_DIR = "results"
 
 MODELS = [
-    {
-        "name": "CodeBERT",
-        "hf": "microsoft/codebert-base"
-    },
     {
         "name": "gemma-4-31B-it",
         "hf": "google/gemma-4-31b-it"
@@ -45,6 +41,33 @@ MODELS = [
     }
 ]
 
+# -------------------------
+# CLI ARG: model["hf"]
+# -------------------------
+if len(sys.argv) < 2:
+    print("Usage: python script.py <model_hf>")
+    sys.exit(1)
+
+target_hf = sys.argv[1]
+
+# find model
+model = next((m for m in MODELS if m["hf"] == target_hf), None)
+
+if model is None:
+    print(f"Model not found: {target_hf}")
+    print("Available models:")
+    for m in MODELS:
+        print(" -", m["hf"])
+    sys.exit(1)
+
+model_name = model["name"]
+model_hf = model["hf"]
+
+output_file = os.path.join(RESULTS_DIR, f"{model_name}.pickle")
+
+os.makedirs(RESULTS_DIR, exist_ok=True)
+
+# load prompts
 with open("dataset_creation/prompts.pickle", "rb") as f:
     prompts = pickle.load(f)
 
@@ -55,63 +78,58 @@ client = OpenAI(
     api_key="EMPTY"
 )
 
-for model in MODELS:
+print(f"\n=== RUNNING MODEL: {model_name} ({model_hf}) ===")
 
-    model_name = model["name"]
+for idx, prompt in enumerate(prompts):
 
-    print(f"\n=== MODEL {model_name} ===")
+    try:
+        start = time.time()
 
-    for idx, prompt in enumerate(prompts):
+        response = client.chat.completions.create(
+            model=model_hf,
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt["prompt"]
+                }
+            ],
+            temperature=0.2
+        )
 
-        try:
-            start = time.time()
+        latency = time.time() - start
+        answer = response.choices[0].message.content
 
-            response = client.chat.completions.create(
-                model=model["hf"],
-                messages=[
-                    {
-                        "role": "user",
-                        "content": prompt["prompt"]
-                    }
-                ],
-                temperature=0.2,
-                max_tokens=2048
-            )
+        item = {
+            "model": model_name,
+            "hf_model": model_hf,
+            "prompt_id": idx,
+            "prompt": prompt["prompt"],
+            "response": answer,
+            "latency": latency,
+            "timestamp": time.time(),
+            "is_clone": prompt["is_clone"]
+        }
 
-            latency = time.time() - start
+        results.append(item)
 
-            answer = response.choices[0].message.content
+        with open(output_file, "wb") as f:
+            pickle.dump(results, f)
 
-            item = {
-                "model": model_name,
-                "hf_model": model["hf"],
-                "prompt_id": idx,
-                "prompt": prompt["prompt"],
-                "response": answer,
-                "latency": latency,
-                "timestamp": time.time(),
-                "is_clone": prompt["is_clone"]
-            }
+        print(f"[OK] prompt={idx} latency={latency:.2f}s")
 
-            results.append(item)
+    except Exception as e:
 
-            with open(RESULTS_FILE, "wb") as f:
-                pickle.dump(results, f)
+        item = {
+            "model": model_name,
+            "hf_model": model_hf,
+            "prompt_id": idx,
+            "error": str(e),
+            "timestamp": time.time()
+        }
 
-            print(f"[OK] prompt={idx} latency={latency:.2f}s")
+        results.append(item)
 
-        except Exception as e:
+        with open(output_file, "wb") as f:
+            pickle.dump(results, f)
 
-            item = {
-                "model": model_name,
-                "prompt_id": idx,
-                "error": str(e),
-                "timestamp": time.time()
-            }
-
-            results.append(item)
-
-            with open(RESULTS_FILE, "wb") as f:
-                pickle.dump(results, f)
-
-            print(f"[ERROR] {e}")
+        print(f"[ERROR] {e}")

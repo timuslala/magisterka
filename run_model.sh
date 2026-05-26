@@ -24,6 +24,6 @@ for i in {1..120}; do
     sleep 10
 done
 
-python benchmark.py
+python benchmark.py $MODEL
 
 kill $SERVER_PID

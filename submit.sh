@@ -1,21 +1,17 @@
 #!/bin/bash
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:4
-#SBATCH --cpus-per-task=32
-#SBATCH --mem=256G
-#SBATCH --time=72:00:00
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=128G
+#SBATCH --time=24:00:00
 #SBATCH --output=logs/slurm.out
 
-module load cuda
-module load miniconda
-
-conda activate llm
+cd ~/magisterka/magisterka/dataset_creation
 
 mkdir -p results
 mkdir -p logs
-
+source caches_to_tmpdir.sh
 MODELS=(
-    "microsoft/codebert-base"
     "google/gemma-4-31b-it"
     "google/gemma-4-8b-it"
     "Qwen/Qwen2.5-72B-Instruct"
@@ -34,5 +30,5 @@ do
 
     bash run_model.sh $MODEL 4
 
-    sleep 30
+    sleep 10
 done
