@@ -2,7 +2,9 @@
 
 MODEL=$1
 TP=$2
-
+export HF_HOME=$TMPDIR
+export TRANSFORMERS_CACHE=$TMPDIR
+export HUGGINGFACE_HUB_CACHE=$TMPDIR
 echo "STARTING MODEL: $MODEL"
 
 python -m vllm.entrypoints.openai.api_server \
