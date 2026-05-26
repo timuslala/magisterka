@@ -13,7 +13,7 @@ MODELS = [
     },
     {
         "name": "gemma-4-E4B-it",
-        "hf": "google/gemma-4-8b-it"
+        "hf": "google/gemma-4-E4B-it"
     },
     {
         "name": "Qwen3.5-122B-A10B",

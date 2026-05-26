@@ -13,7 +13,7 @@ mkdir -p logs
 source caches_to_tmpdir.sh
 MODELS=(
     "google/gemma-4-31b-it"
-    "google/gemma-4-8b-it"
+    "google/gemma-4-E4B-it"
     "Qwen/Qwen2.5-72B-Instruct"
     "Qwen/Qwen2.5-Coder-32B-Instruct"
     "mistralai/Mixtral-8x22B-Instruct-v0.1"
