@@ -12,6 +12,7 @@ uv run python -m vllm.entrypoints.openai.api_server \
     --model $MODEL \
     --tensor-parallel-size $TP \
     --download-dir $TMPDIR/hf_cache/hub \
+    --disable-custom-all-reduce \
     --host 0.0.0.0 \
     --port 8000 \
     > logs/vllm.log 2>&1 &
