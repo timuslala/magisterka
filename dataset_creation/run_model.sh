@@ -5,6 +5,7 @@ TP=$2
 export HF_HOME=$TMPDIR
 export TRANSFORMERS_CACHE=$TMPDIR
 export HUGGINGFACE_HUB_CACHE=$TMPDIR
+export HF_HUB_CACHE=$TMPDIR
 echo "STARTING MODEL: $MODEL"
 cd ~/magisterka/magisterka/dataset_creation
 uv run python -m vllm.entrypoints.openai.api_server \
