@@ -11,16 +11,7 @@ cd ~/magisterka/magisterka/dataset_creation
 mkdir -p results
 mkdir -p logs
 source caches_to_tmpdir.sh
-MODELS=(
-    "google/gemma-4-31b-it"
-    "google/gemma-4-E4B-it"
-    "Qwen/Qwen2.5-72B-Instruct"
-    "Qwen/Qwen2.5-Coder-32B-Instruct"
-    "mistralai/Mixtral-8x22B-Instruct-v0.1"
-    "PrimeIntellect/INTELLECT-1-Instruct"
-    "openai/gpt-oss-120b"
-    "openai/gpt-oss-20b"
-)
+
 
 # Require single model argument
 if [ -z "$1" ]; then

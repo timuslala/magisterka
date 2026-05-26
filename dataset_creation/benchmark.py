@@ -17,19 +17,19 @@ MODELS = [
     },
     {
         "name": "Qwen3.5-122B-A10B",
-        "hf": "Qwen/Qwen2.5-72B-Instruct"
+        "hf": "Qwen/Qwen3.5-122B-A10B"
     },
     {
         "name": "Qwen3-Coder-Next",
-        "hf": "Qwen/Qwen2.5-Coder-32B-Instruct"
+        "hf": "Qwen/Qwen3-Coder-Next"
     },
     {
         "name": "Mistral-Medium-3.5-128B",
-        "hf": "mistralai/Mixtral-8x22B-Instruct-v0.1"
+        "hf": "mistralai/Mistral-Medium-3.5-128B"
     },
     {
         "name": "INTELLECT-3",
-        "hf": "PrimeIntellect/INTELLECT-1-Instruct"
+        "hf": "PrimeIntellect/INTELLECT-3"
     },
     {
         "name": "GPT-OSS-120B",
