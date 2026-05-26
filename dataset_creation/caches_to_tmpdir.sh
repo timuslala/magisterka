@@ -1,0 +1,8 @@
+export HF_HOME="$TMPDIR/hf"
+export HUGGINGFACE_HUB_CACHE="$TMPDIR/hf"
+export TRANSFORMERS_CACHE="$TMPDIR/hf"
+
+export VLLM_CACHE_ROOT="$TMPDIR/vllm"
+export TORCH_HOME="$TMPDIR/torch"
+export TRITON_CACHE_DIR="$TMPDIR/triton"
+export XDG_CACHE_HOME="$TMPDIR"
