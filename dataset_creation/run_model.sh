@@ -18,6 +18,6 @@ echo "Waiting for server..."
 
 sleep 120
 
-python benchmark.py
+uv run benchmark.py
 
 kill $SERVER_PID
