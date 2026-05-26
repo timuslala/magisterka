@@ -10,6 +10,7 @@ cd ~/magisterka/magisterka/dataset_creation
 uv run python -m vllm.entrypoints.openai.api_server \
     --model $MODEL \
     --tensor-parallel-size $TP \
+    --download-dir $TMPDIR/hf_cache/hub \
     --host 0.0.0.0 \
     --port 8000 \
     > logs/vllm.log 2>&1 &

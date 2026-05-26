@@ -1,4 +1,5 @@
 export HF_HOME="$TMPDIR/hf"
+export HF_HUB_CACHE="$TMPDIR/hf/hub"
 export HUGGINGFACE_HUB_CACHE="$TMPDIR/hf"
 export TRANSFORMERS_CACHE="$TMPDIR/hf"
 
