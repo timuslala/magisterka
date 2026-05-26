@@ -8,10 +8,6 @@ RESULTS_FILE = "results/results.pickle"
 
 MODELS = [
     {
-        "name": "CodeBERT",
-        "hf": "microsoft/codebert-base"
-    },
-    {
         "name": "gemma-4-31B-it",
         "hf": "google/gemma-4-31b-it"
     },
