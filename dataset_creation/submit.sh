@@ -1,11 +1,10 @@
 #!/bin/bash
 #SBATCH --partition=lem-gpu-short
-#SBATCH --gres=gpu:hopper:4
+#SBATCH --gres=gpu:hopper:4,storage:lustre:1000G
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=256G
 #SBATCH --time=24:00:00
 #SBATCH --output=logs/slurm.out
-#SBATCH --gres=storage:lustre:1000G
 
 cd ~/magisterka/magisterka/dataset_creation
 
