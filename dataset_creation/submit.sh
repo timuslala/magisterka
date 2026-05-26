@@ -1,6 +1,6 @@
 #!/bin/bash
-#SBATCH --partition=gpu
-#SBATCH --gres=gpu:4
+#SBATCH --partition=lem-gpu-short
+#SBATCH --gres=gpu:hopper:4
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=128G
 #SBATCH --time=24:00:00
