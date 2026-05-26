@@ -16,8 +16,14 @@ SERVER_PID=$!
 
 echo "Waiting for server..."
 
-sleep 120
+echo "Waiting for vLLM to be ready..."
 
-uv run benchmark.py
+for i in {1..120}; do
+    curl -s http://localhost:8000/v1/models && break
+    echo "not ready yet... $i"
+    sleep 10
+done
+
+python benchmark.py
 
 kill $SERVER_PID
