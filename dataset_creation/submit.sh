@@ -22,13 +22,16 @@ MODELS=(
     "openai/gpt-oss-20b"
 )
 
-for MODEL in "${MODELS[@]}"
-do
-    echo "====================================="
-    echo "RUNNING $MODEL"
-    echo "====================================="
+# Require single model argument
+if [ -z "$1" ]; then
+    echo "Usage: sbatch script.sh <model_name>"
+    exit 1
+fi
 
-    bash run_model.sh $MODEL 4
+MODEL="$1"
 
-    sleep 10
-done
+echo "====================================="
+echo "RUNNING $MODEL"
+echo "====================================="
+
+bash run_model.sh "$MODEL" 4
