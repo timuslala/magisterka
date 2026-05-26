@@ -8,6 +8,10 @@ RESULTS_FILE = "results/results.pickle"
 
 MODELS = [
     {
+        "name": "CodeBERT",
+        "hf": "microsoft/codebert-base"
+    },
+    {
         "name": "gemma-4-31B-it",
         "hf": "google/gemma-4-31b-it"
     },
@@ -67,7 +71,7 @@ for model in MODELS:
                 messages=[
                     {
                         "role": "user",
-                        "content": prompt
+                        "content": prompt["prompt"]
                     }
                 ],
                 temperature=0.2,
@@ -82,10 +86,11 @@ for model in MODELS:
                 "model": model_name,
                 "hf_model": model["hf"],
                 "prompt_id": idx,
-                "prompt": prompt,
+                "prompt": prompt["prompt"],
                 "response": answer,
                 "latency": latency,
-                "timestamp": time.time()
+                "timestamp": time.time(),
+                "is_clone": prompt["is_clone"]
             }
 
             results.append(item)
