@@ -6,8 +6,8 @@ export HF_HOME=$TMPDIR
 export TRANSFORMERS_CACHE=$TMPDIR
 export HUGGINGFACE_HUB_CACHE=$TMPDIR
 echo "STARTING MODEL: $MODEL"
-
-python -m vllm.entrypoints.openai.api_server \
+cd ~/magisterka/magisterka/dataset_creation
+uv run python -m vllm.entrypoints.openai.api_server \
     --model $MODEL \
     --tensor-parallel-size $TP \
     --host 0.0.0.0 \
@@ -26,6 +26,6 @@ for i in {1..120}; do
     sleep 10
 done
 
-python benchmark.py
+uv run benchmark.py
 
 kill $SERVER_PID
