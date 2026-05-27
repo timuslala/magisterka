@@ -24,7 +24,6 @@ uv run python -m vllm.entrypoints.openai.api_server \
     --port 8000 \
     --chat-template-content-format string \
     --trust-remote-code \
-    --limit-mm-per-prompt image=0 \
     > logs/vllm.log 2>&1 &
 
 SERVER_PID=$!
