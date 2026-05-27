@@ -63,7 +63,7 @@ if model is None:
 model_name = model["name"]
 model_hf = model["hf"]
 
-output_file = os.path.join(RESULTS_DIR, f"{model_name}.pickle")
+output_file = os.path.join(RESULTS_DIR, f"{model_name}reversed.pickle")
 
 os.makedirs(RESULTS_DIR, exist_ok=True)
 
@@ -80,7 +80,7 @@ client = OpenAI(
 
 print(f"\n=== RUNNING MODEL: {model_name} ({model_hf}) ===")
 
-for idx, prompt in enumerate(prompts):
+for idx, prompt in reversed(list(enumerate(prompts))):
 
     try:
         start = time.time()
