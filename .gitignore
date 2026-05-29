@@ -7,3 +7,5 @@ test_dataset_50_50.csv
 train_codes_from_smallest_groups.csv
 googlejam4.zip*
 clone_index_distribution.png
+pickles_intermediate
+pickles_final
